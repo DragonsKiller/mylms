@@ -1,3 +1,3 @@
 class Category < ApplicationRecord
-  has_many :line_items, inverse_of: :order
+  has_many :posts
 end
