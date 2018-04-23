@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
   belongs_to :category
-  validate: :titl, :content, :category_id, presense: true
+  validates_presence_of :title, :content, :category_id
+  has_many :line_items, inverse_of: :order
 end
