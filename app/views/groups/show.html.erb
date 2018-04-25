@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @group.name %>
+</p>
+
+<% @group.subgroups.each do |subgroup| %>
+    <span class="subgroup">	<%=subgroup.id %></span>
+    <span class="subgroup">	<%=subgroup.name %></span>
+    <br>
+<% end %>
+
+<h2>New Subgroup</h2>
+
+<%= form_for @subgroup, :url => "#{@group.id}/new_subgroup"  do |f| %>
+	<%= hidden_field_tag :group_id, @group.id %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+<%= link_to 'Subgroups', group_subgroups_path(@group) %>
+<%= link_to 'Edit', edit_group_path(@group) %> |
+<%= link_to 'Back', groups_path %>

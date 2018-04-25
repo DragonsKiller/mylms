@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+
+  get "groups/:group/new_subgroup", :to => "groups#new_subgroup"
+  post "groups/:group/new_subgroup", :to => "groups#new_subgroup"
+
+  resources :groups do
+    resources :subgroups
+  end
+  resources :groups
   resources :practical_works
   resources :laboratory_works
   resources :subjects
