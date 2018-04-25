@@ -16,6 +16,8 @@
       <tr>
         <td><%= practical_work.name %></td>
         <td><%= practical_work.description %></td>
+        <td><%= link_to "Read", pdfjs.minimal_path(file: practical_work.document_url) %></td>
+        <td><%= link_to "Download", pdfjs.full_path(file: practical_work.document_url) %></td>
         <td><%= link_to 'Show', practical_work %></td>
         <td><%= link_to 'Edit', edit_practical_work_path(practical_work) %></td>
         <td><%= link_to 'Destroy', practical_work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
