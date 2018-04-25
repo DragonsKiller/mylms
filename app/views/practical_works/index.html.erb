@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Practical Works</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @practical_works.each do |practical_work| %>
+      <tr>
+        <td><%= practical_work.name %></td>
+        <td><%= practical_work.description %></td>
+        <td><%= link_to 'Show', practical_work %></td>
+        <td><%= link_to 'Edit', edit_practical_work_path(practical_work) %></td>
+        <td><%= link_to 'Destroy', practical_work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Practical Work', new_practical_work_path %>

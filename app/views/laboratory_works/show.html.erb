@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @laboratory_work.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @laboratory_work.description %>
+</p>
+
+<%= link_to 'Edit', edit_laboratory_work_path(@laboratory_work) %> |
+<%= link_to 'Back', laboratory_works_path %>

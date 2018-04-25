@@ -1,0 +1,27 @@
+<%= form_with(model: laboratory_work, local: true) do |form| %>
+  <% if laboratory_work.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(laboratory_work.errors.count, "error") %> prohibited this laboratory_work from being saved:</h2>
+
+      <ul>
+      <% laboratory_work.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :laboratory_work_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :laboratory_work_description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

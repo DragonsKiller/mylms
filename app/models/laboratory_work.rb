@@ -1,0 +1,2 @@
+class LaboratoryWork < ApplicationRecord
+end

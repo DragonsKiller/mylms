@@ -1,0 +1,27 @@
+<%= form_with(model: practical_work, local: true) do |form| %>
+  <% if practical_work.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(practical_work.errors.count, "error") %> prohibited this practical_work from being saved:</h2>
+
+      <ul>
+      <% practical_work.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :practical_work_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :practical_work_description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

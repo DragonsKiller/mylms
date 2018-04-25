@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @practical_work.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @practical_work.description %>
+</p>
+
+<%= link_to 'Edit', edit_practical_work_path(@practical_work) %> |
+<%= link_to 'Back', practical_works_path %>
