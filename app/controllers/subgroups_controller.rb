@@ -31,8 +31,7 @@ class SubgroupsController < ApplicationController
   # GET /subgroups/new
   def new
     group = Group.find(params[:group_id])
-
-    @subgroups = group.subgroups.build
+    @subgroup = group.subgroups.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -53,7 +52,7 @@ class SubgroupsController < ApplicationController
   def create
     group = Group.find(params[:group_id])
 
-    @subgroup = group.subgroups.create(params[:subgroup])
+    @subgroup = group.subgroups.create(subgroup_params)
 
     respond_to do |format|
       if @subgroup.save
@@ -73,7 +72,7 @@ class SubgroupsController < ApplicationController
 
     @subgroup = group.subgroups.find(params[:id])
     respond_to do |format|
-      if @subgroup.update_attributes(params[:comment])
+      if @subgroup.update_attributes(subgroup_params)
         format.html { redirect_to([@subgroup.group, @subgroup], :notice => 'Comment was successfully updated.') }
         format.xml  { head :ok }
       else

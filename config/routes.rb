@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  root 'posts#index'
   get "groups/:group/new_subgroup", :to => "groups#new_subgroup"
   post "groups/:group/new_subgroup", :to => "groups#new_subgroup"
 
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   devise_for :teachers
   devise_for :students
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'posts#index'
+
   mount PdfjsViewer::Rails::Engine => "/pdfjs", as: 'pdfjs'
   resources :posts
 end

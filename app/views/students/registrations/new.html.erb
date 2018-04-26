@@ -24,6 +24,20 @@
   </div>
 
   <div class="field">
+    <%= f.label :subgroup_id %><br />
+    <%=
+      collection_select(:student,
+      :subgroup_id,
+      Subgroup.all,
+      :id,
+      :name,
+      {:include_blank => 'Please Select'}
+    )
+    %>
+  </div>
+
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autocomplete: "email" %>
   </div>
