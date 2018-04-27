@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :brigade_memberships
+  resources :brigades
   root 'posts#index'
   get "groups/:group/new_subgroup", :to => "groups#new_subgroup"
   post "groups/:group/new_subgroup", :to => "groups#new_subgroup"

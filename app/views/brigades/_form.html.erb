@@ -1,0 +1,22 @@
+<%= form_with(model: brigade, local: true) do |form| %>
+  <% if brigade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(brigade.errors.count, "error") %> prohibited this brigade from being saved:</h2>
+
+      <ul>
+      <% brigade.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :brigade_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
