@@ -1,6 +1,8 @@
 <h1>Editing Brigade</h1>
-
-<%= render 'form', brigade: @brigade %>
-
+<% if student_signed_in? %>
+  <% if @brigade.brigade_admin_id == current_student.id %>
+    <%= render 'form', brigade: @brigade %>
+  <% end %>
+<% end %>
 <%= link_to 'Show', @brigade %> |
 <%= link_to 'Back', brigades_path %>

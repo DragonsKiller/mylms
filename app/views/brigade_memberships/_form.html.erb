@@ -12,13 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :student_id %>
-    <%= form.text_field :student_id, id: :brigade_membership_student_id %>
+    <%= form.select :student_id, Student.all.collect { |p| [ p.last_name+' '+p.first_name+' '+p.second_name, p.id ] } %>
   </div>
 
   <div class="field">
     <%= form.label :brigade_id %>
-    <%= form.text_field :brigade_id, id: :brigade_membership_brigade_id %>
+    <%= form.select :brigade_id, Brigade.all.collect { |p| [ p.name, p.id ] } %>
   </div>
 
   <div class="actions">

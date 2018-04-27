@@ -14,8 +14,8 @@
   <tbody>
     <% @brigade_memberships.each do |brigade_membership| %>
       <tr>
-        <td><%= brigade_membership.student %></td>
-        <td><%= brigade_membership.brigade %></td>
+        <td><%= brigade_membership.student.last_name+' '+brigade_membership.student.first_name+' '+brigade_membership.student.second_name %></td>
+        <td><%= brigade_membership.brigade.name %></td>
         <td><%= link_to 'Show', brigade_membership %></td>
         <td><%= link_to 'Edit', edit_brigade_membership_path(brigade_membership) %></td>
         <td><%= link_to 'Destroy', brigade_membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>

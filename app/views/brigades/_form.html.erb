@@ -16,6 +16,8 @@
     <%= form.text_field :name, id: :brigade_name %>
   </div>
 
+  <%= form.hidden_field :brigade_admin_id, :value => current_student.id %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

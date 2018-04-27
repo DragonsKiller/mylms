@@ -69,6 +69,6 @@ class BrigadesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def brigade_params
-      params.require(:brigade).permit(:name)
+      params.require(:brigade).permit(:name, :brigade_admin_id)
     end
 end

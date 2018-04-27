@@ -15,8 +15,12 @@
       <tr>
         <td><%= brigade.name %></td>
         <td><%= link_to 'Show', brigade %></td>
-        <td><%= link_to 'Edit', edit_brigade_path(brigade) %></td>
-        <td><%= link_to 'Destroy', brigade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if student_signed_in? %>
+          <% if brigade.brigade_admin_id == current_student.id %>
+          <td><%= link_to 'Edit', edit_brigade_path(brigade) %></td>
+          <td><%= link_to 'Destroy', brigade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
