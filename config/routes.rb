@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :academic_plans
+  resources :semesters
   resources :teachers_project_memberships
   resources :students_project_memberships
   resources :projects

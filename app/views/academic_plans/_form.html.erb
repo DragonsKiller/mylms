@@ -1,0 +1,27 @@
+<%= form_with(model: academic_plan, local: true) do |form| %>
+  <% if academic_plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(academic_plan.errors.count, "error") %> prohibited this academic_plan from being saved:</h2>
+
+      <ul>
+      <% academic_plan.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :semester_id %>
+    <%= form.select :semester_id, Semester.all.collect { |p| [ p.id, p.id ] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :subject_id %>
+    <%= form.select :subject_id, Subject.all.collect { |p| [ p.name, p.id ] } %>
+  </div
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

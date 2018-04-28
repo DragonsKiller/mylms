@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428000543) do
+ActiveRecord::Schema.define(version: 20180428135648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "academic_plans", force: :cascade do |t|
+    t.bigint "semester_id"
+    t.bigint "subject_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["semester_id"], name: "index_academic_plans_on_semester_id"
+    t.index ["subject_id"], name: "index_academic_plans_on_subject_id"
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -88,6 +97,11 @@ ActiveRecord::Schema.define(version: 20180428000543) do
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.integer "project_admin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "semesters", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -168,6 +182,8 @@ ActiveRecord::Schema.define(version: 20180428000543) do
     t.index ["teacher_id"], name: "index_teachers_project_memberships_on_teacher_id"
   end
 
+  add_foreign_key "academic_plans", "semesters"
+  add_foreign_key "academic_plans", "subjects"
   add_foreign_key "brigade_memberships", "brigades"
   add_foreign_key "brigade_memberships", "students"
   add_foreign_key "students", "subgroups"
