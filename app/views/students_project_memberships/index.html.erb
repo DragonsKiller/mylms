@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Students Project Memberships</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Projects</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students_project_memberships.each do |students_project_membership| %>
+      <tr>
+        <td><%= students_project_membership.student.last_name+' '+students_project_membership.student.first_name+' '+students_project_membership.student.second_name %></td>
+        <td><%= students_project_membership.project.name %></td>
+        <td><%= link_to 'Show', students_project_membership %></td>
+        <td><%= link_to 'Edit', edit_students_project_membership_path(students_project_membership) %></td>
+        <td><%= link_to 'Destroy', students_project_membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Students Project Membership', new_students_project_membership_path %>

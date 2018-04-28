@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180427231449) do
+ActiveRecord::Schema.define(version: 20180427235126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,13 @@ ActiveRecord::Schema.define(version: 20180427231449) do
     t.string "document"
   end
 
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.integer "project_admin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -106,6 +113,15 @@ ActiveRecord::Schema.define(version: 20180427231449) do
     t.index ["email"], name: "index_students_on_email", unique: true
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
     t.index ["subgroup_id"], name: "index_students_on_subgroup_id"
+  end
+
+  create_table "students_project_memberships", force: :cascade do |t|
+    t.bigint "student_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_students_project_memberships_on_project_id"
+    t.index ["student_id"], name: "index_students_project_memberships_on_student_id"
   end
 
   create_table "subgroups", force: :cascade do |t|
@@ -146,5 +162,7 @@ ActiveRecord::Schema.define(version: 20180427231449) do
   add_foreign_key "brigade_memberships", "brigades"
   add_foreign_key "brigade_memberships", "students"
   add_foreign_key "students", "subgroups"
+  add_foreign_key "students_project_memberships", "projects"
+  add_foreign_key "students_project_memberships", "students"
   add_foreign_key "subgroups", "groups"
 end

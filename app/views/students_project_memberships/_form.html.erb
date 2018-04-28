@@ -1,0 +1,26 @@
+<%= form_with(model: students_project_membership, local: true) do |form| %>
+  <% if students_project_membership.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(students_project_membership.errors.count, "error") %> prohibited this students_project_membership from being saved:</h2>
+
+      <ul>
+      <% students_project_membership.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.select :student_id, Student.all.collect { |p| [ p.last_name+' '+p.first_name+' '+p.second_name, p.id ] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :project_id %>
+    <%= form.select :project_id, Project.all.collect { |p| [ p.name, p.id ] } %>
+  </div
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :students_project_memberships
+  resources :projects
   resources :brigade_memberships
   resources :brigades
   root 'posts#index'
