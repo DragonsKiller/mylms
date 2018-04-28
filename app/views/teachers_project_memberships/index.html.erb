@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Teachers Project Memberships</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Teacher</th>
+      <th>Project</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teachers_project_memberships.each do |teachers_project_membership| %>
+      <tr>
+        <td><%= teachers_project_membership.teacher.last_name+' '+teachers_project_membership.teacher.first_name+' '+teachers_project_membership.teacher.second_name %></td>
+        <td><%= teachers_project_membership.project.name %></td>
+        <td><%= link_to 'Show', teachers_project_membership %></td>
+        <td><%= link_to 'Edit', edit_teachers_project_membership_path(teachers_project_membership) %></td>
+        <td><%= link_to 'Destroy', teachers_project_membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Teachers Project Membership', new_teachers_project_membership_path %>

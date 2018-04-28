@@ -5,6 +5,9 @@ class Student < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :subgroup
-  has_many :brigade_memberships, dependent: :destroy
+  has_many :brigade_memberships
   has_many :brigades, through: :brigade_memberships
+
+  has_many :students_project_memberships
+  has_many :projects, through: :students_project_memberships
 end

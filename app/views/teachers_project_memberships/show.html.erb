@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @teachers_project_membership.teacher.last_name+' '+@teachers_project_membership.teacher.first_name+' '+@teachers_project_membership.teacher.second_name%>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @teachers_project_membership.project.name %>
+</p>
+
+<%= link_to 'Edit', edit_teachers_project_membership_path(@teachers_project_membership) %> |
+<%= link_to 'Back', teachers_project_memberships_path %>

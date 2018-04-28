@@ -4,6 +4,10 @@
   <strong>Name:</strong>
   <%= @brigade.name %>
 </p>
+<% if student_signed_in? %>
+  <% if @brigade.brigade_admin_id == current_student.id %>
+  <%= link_to 'Edit', edit_brigade_path(@brigade) %> |
+  <% end %>
+<% end %>
 
-<%= link_to 'Edit', edit_brigade_path(@brigade) %> |
 <%= link_to 'Back', brigades_path %>

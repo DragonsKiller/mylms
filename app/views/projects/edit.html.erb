@@ -1,6 +1,12 @@
 <h1>Editing Project</h1>
 
-<%= render 'form', project: @project %>
+<% if teacher_signed_in? %>
+  <% if @project.project_admin_id == current_teacher.id %>
+    <%= render 'form', project: @project %>
+  <% end %>
+<% end %>
+
+
 
 <%= link_to 'Show', @project %> |
 <%= link_to 'Back', projects_path %>

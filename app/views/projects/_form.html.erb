@@ -16,10 +16,7 @@
     <%= form.text_field :name, id: :project_name %>
   </div>
 
-  <div class="field">
-    <%= form.label :project_admin_id %>
-    <%= form.number_field :project_admin_id, id: :project_project_admin_id %>
-  </div>
+  <%= form.hidden_field :project_admin_id, :value => current_teacher.id %>
 
   <div class="actions">
     <%= form.submit %>

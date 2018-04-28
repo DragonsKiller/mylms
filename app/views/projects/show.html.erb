@@ -10,5 +10,10 @@
   <%= @project.project_admin_id %>
 </p>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
+<% if teacher_signed_in? %>
+  <% if @project.project_admin_id == current_teacher.id %>
+    <%= link_to 'Edit', edit_project_path(@project) %> |
+  <% end %>
+<% end %>
+
 <%= link_to 'Back', projects_path %>

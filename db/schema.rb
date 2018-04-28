@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180427235126) do
+ActiveRecord::Schema.define(version: 20180428000543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,10 +159,21 @@ ActiveRecord::Schema.define(version: 20180427235126) do
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
   end
 
+  create_table "teachers_project_memberships", force: :cascade do |t|
+    t.bigint "teacher_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_teachers_project_memberships_on_project_id"
+    t.index ["teacher_id"], name: "index_teachers_project_memberships_on_teacher_id"
+  end
+
   add_foreign_key "brigade_memberships", "brigades"
   add_foreign_key "brigade_memberships", "students"
   add_foreign_key "students", "subgroups"
   add_foreign_key "students_project_memberships", "projects"
   add_foreign_key "students_project_memberships", "students"
   add_foreign_key "subgroups", "groups"
+  add_foreign_key "teachers_project_memberships", "projects"
+  add_foreign_key "teachers_project_memberships", "teachers"
 end
