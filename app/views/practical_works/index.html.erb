@@ -7,7 +7,8 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th colspan="3"></th>
+      <th>Mark</th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -16,6 +17,7 @@
       <tr>
         <td><%= practical_work.name %></td>
         <td><%= practical_work.description %></td>
+        <td><%= practical_work.mark %></td>
         <td><%= link_to "Read", pdfjs.minimal_path(file: practical_work.document_url) %></td>
         <td><%= link_to "Download", pdfjs.full_path(file: practical_work.document_url) %></td>
         <td><%= link_to 'Show', practical_work %></td>
