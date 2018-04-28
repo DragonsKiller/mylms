@@ -15,5 +15,25 @@
   <%= @laboratory_work.mark %>
 </p>
 
+<p>
+  <strong>Student:</strong>
+  <%= @laboratory_work.student.last_name+' '+@laboratory_work.student.first_name+' '+@laboratory_work.student.second_name %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @laboratory_work.teacher.last_name+' '+@laboratory_work.teacher.first_name+' '+@laboratory_work.teacher.second_name %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @laboratory_work.academic_plan.semester_id %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @laboratory_work.academic_plan.subject.name %>
+</p>
+
 <%= link_to 'Edit', edit_laboratory_work_path(@laboratory_work) %> |
 <%= link_to 'Back', laboratory_works_path %>

@@ -8,6 +8,10 @@
       <th>Name</th>
       <th>Description</th>
       <th>Mark</th>
+      <th>Student</th>
+      <th>Teacher</th>
+      <th>Semester</th>
+      <th>Subject</th>
       <th colspan="5"></th>
     </tr>
   </thead>
@@ -18,6 +22,10 @@
         <td><%= laboratory_work.name %></td>
         <td><%= laboratory_work.description %></td>
         <td><%= laboratory_work.mark %></td>
+        <td><%= laboratory_work.student.last_name+' '+laboratory_work.student.first_name+' '+laboratory_work.student.second_name %></td>
+        <td><%= laboratory_work.teacher.last_name+' '+laboratory_work.teacher.first_name+' '+laboratory_work.teacher.second_name %></td>
+        <td><%= laboratory_work.academic_plan.semester_id %></td>
+        <td><%= laboratory_work.academic_plan.subject.name %></td>
         <td><%= link_to "Read", pdfjs.minimal_path(file: laboratory_work.document_url) %></td>
         <td><%= link_to "Download", pdfjs.full_path(file: laboratory_work.document_url) %></td>
         <td><%= link_to 'Show', laboratory_work %></td>

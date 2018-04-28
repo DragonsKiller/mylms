@@ -10,4 +10,10 @@ class Student < ApplicationRecord
 
   has_many :students_project_memberships
   has_many :projects, through: :students_project_memberships
+
+  has_many :laboratory_works
+  has_many :teachers, through: :laboratory_works
+
+  has_many :laboratory_works
+  has_many :academic_plans, through: :laboratory_works
 end

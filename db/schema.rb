@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428142556) do
+ActiveRecord::Schema.define(version: 20180428144336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,12 @@ ActiveRecord::Schema.define(version: 20180428142556) do
     t.datetime "updated_at", null: false
     t.string "document"
     t.integer "mark"
+    t.bigint "student_id"
+    t.bigint "academic_plan_id"
+    t.bigint "teacher_id"
+    t.index ["academic_plan_id"], name: "index_laboratory_works_on_academic_plan_id"
+    t.index ["student_id"], name: "index_laboratory_works_on_student_id"
+    t.index ["teacher_id"], name: "index_laboratory_works_on_teacher_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -188,6 +194,9 @@ ActiveRecord::Schema.define(version: 20180428142556) do
   add_foreign_key "academic_plans", "subjects"
   add_foreign_key "brigade_memberships", "brigades"
   add_foreign_key "brigade_memberships", "students"
+  add_foreign_key "laboratory_works", "academic_plans"
+  add_foreign_key "laboratory_works", "students"
+  add_foreign_key "laboratory_works", "teachers"
   add_foreign_key "students", "subgroups"
   add_foreign_key "students_project_memberships", "projects"
   add_foreign_key "students_project_memberships", "students"
