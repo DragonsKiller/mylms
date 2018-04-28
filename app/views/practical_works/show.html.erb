@@ -15,5 +15,25 @@
   <%= @practical_work.mark %>
 </p>
 
+<p>
+  <strong>Student:</strong>
+  <%= @practical_work.student.last_name+' '+@practical_work.student.first_name+' '+@practical_work.student.second_name %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @practical_work.teacher.last_name+' '+@practical_work.teacher.first_name+' '+@practical_work.teacher.second_name %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @practical_work.academic_plan.semester_id %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @practical_work.academic_plan.subject.name %>
+</p>
+
 <%= link_to 'Edit', edit_practical_work_path(@practical_work) %> |
 <%= link_to 'Back', practical_works_path %>

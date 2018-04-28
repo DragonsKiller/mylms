@@ -31,6 +31,18 @@
     <%= form.file_field :document %>
   </div>
 
+  <div class="field">
+    <%= form.select :student_id, Student.all.collect { |p| [ p.last_name+' '+p.first_name+' '+p.second_name, p.id ] } %>
+  </div>
+
+  <div class="field">
+    <%= form.select :teacher_id, Teacher.all.collect { |p| [ p.last_name+' '+p.first_name+' '+p.second_name, p.id ] } %>
+  </div>
+
+  <div class="field">
+    <%= form.select :academic_plan_id, AcademicPlan.all.collect { |p| [ 'Semester: '+p.semester_id.to_s+', Subject: '+p.subject.name, p.id ] } %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

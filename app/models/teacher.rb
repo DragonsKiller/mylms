@@ -12,4 +12,10 @@ class Teacher < ApplicationRecord
 
   has_many :laboratory_works
   has_many :academic_plans, through: :laboratory_works
+
+  has_many :practical_works
+  has_many :students, through: :practical_works
+
+  has_many :practical_works
+  has_many :academic_plans, through: :practical_works
 end

@@ -69,6 +69,6 @@ class PracticalWorksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def practical_work_params
-      params.require(:practical_work).permit(:name, :description, :mark, :document)
+      params.require(:practical_work).permit(:name, :description, :mark, :document, :student_id, :teacher_id, :academic_plan_id)
     end
 end
