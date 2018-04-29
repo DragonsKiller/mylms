@@ -28,6 +28,7 @@
         <td><%= practical_work.academic_plan.semester_id %></td>
         <td><%= practical_work.academic_plan.subject.name %></td>
         <td><%= practical_work.end_date %></td>
+        <td><%= practical_work.load_date %></td>
         <td><%= link_to "Read", pdfjs.minimal_path(file: practical_work.document_url) %></td>
         <td><%= link_to "Download", pdfjs.full_path(file: practical_work.document_url) %></td>
         <td><%= link_to 'Show', practical_work %></td>

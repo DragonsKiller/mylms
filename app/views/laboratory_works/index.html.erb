@@ -28,6 +28,7 @@
         <td><%= laboratory_work.academic_plan.semester_id %></td>
         <td><%= laboratory_work.academic_plan.subject.name %></td>
         <td><%= laboratory_work.end_date %></td>
+        <td><%= laboratory_work.load_date %></td>
         <td><%= link_to "Read", pdfjs.minimal_path(file: laboratory_work.document_url) %></td>
         <td><%= link_to "Download", pdfjs.full_path(file: laboratory_work.document_url) %></td>
         <td><%= link_to 'Show', laboratory_work %></td>
