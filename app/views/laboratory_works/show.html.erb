@@ -35,5 +35,10 @@
   <%= @laboratory_work.academic_plan.subject.name %>
 </p>
 
+<p>
+  <strong>End date:</strong>
+  <%= @laboratory_work.end_date %>
+</p>
+
 <%= link_to 'Edit', edit_laboratory_work_path(@laboratory_work) %> |
 <%= link_to 'Back', laboratory_works_path %>

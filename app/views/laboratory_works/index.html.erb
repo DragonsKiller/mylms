@@ -12,6 +12,7 @@
       <th>Teacher</th>
       <th>Semester</th>
       <th>Subject</th>
+      <th>End date</th>
       <th colspan="5"></th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
         <td><%= laboratory_work.teacher.last_name+' '+laboratory_work.teacher.first_name+' '+laboratory_work.teacher.second_name %></td>
         <td><%= laboratory_work.academic_plan.semester_id %></td>
         <td><%= laboratory_work.academic_plan.subject.name %></td>
+        <td><%= laboratory_work.end_date %></td>
         <td><%= link_to "Read", pdfjs.minimal_path(file: laboratory_work.document_url) %></td>
         <td><%= link_to "Download", pdfjs.full_path(file: laboratory_work.document_url) %></td>
         <td><%= link_to 'Show', laboratory_work %></td>

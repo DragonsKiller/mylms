@@ -12,6 +12,7 @@
       <th>Teacher</th>
       <th>Semester</th>
       <th>Subject</th>
+      <th>End date</th>
       <th colspan="5"></th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
         <td><%= practical_work.teacher.last_name+' '+practical_work.teacher.first_name+' '+practical_work.teacher.second_name %></td>
         <td><%= practical_work.academic_plan.semester_id %></td>
         <td><%= practical_work.academic_plan.subject.name %></td>
+        <td><%= practical_work.end_date %></td>
         <td><%= link_to "Read", pdfjs.minimal_path(file: practical_work.document_url) %></td>
         <td><%= link_to "Download", pdfjs.full_path(file: practical_work.document_url) %></td>
         <td><%= link_to 'Show', practical_work %></td>

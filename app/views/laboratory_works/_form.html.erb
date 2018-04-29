@@ -43,6 +43,12 @@
     <%= form.select :academic_plan_id, AcademicPlan.all.collect { |p| [ 'Semester: '+p.semester_id.to_s+', Subject: '+p.subject.name, p.id ] } %>
   </div>
 
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_field(:laboratory_work, :end_date) %>
+  </div>
+
+
   <div class="actions">
     <%= form.submit %>
   </div>
