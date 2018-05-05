@@ -1,0 +1,45 @@
+
+<% @students_groups.each do |student_group| %>
+  <% @count = 0 %>
+  <% @marks = 0 %>
+  <% @raiting = @data.find_all {|iterator| iterator["semester"] == 1 && iterator["student_id"] == student_group["student_id"]} %>
+  <table>
+    <thead>
+      <tr>
+        <th>Semester</th>
+        <th>Group</th>
+        <th>Student</th>
+        <% @raiting.each do |rait| %>
+          <th><%=rait["subject"]%></th>
+        <% end %>
+        <th>Rait mark</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><%= @raiting.first["semester"] %></td>
+        <td><%= student_group["group_name"] %></td>
+        <td><%= @raiting.first["full_name"] %></td>
+        <% @raiting.each do |rait| %>
+          <% if rait["tottal_lab_mark"].nil? %>
+            <td><%=rait["tottal_prac_mark"].to_i%></td>
+            <% @marks += rait["tottal_prac_mark"].to_f %>
+            <% @count += 1 %>
+          <% elsif rait["tottal_prac_mark"].nil? %>
+            <td><%=rait["tottal_lab_mark"].to_i%></td>
+            <% @marks += rait["tottal_lab_mark"].to_f %>
+            <% @count += 1 %>
+          <% else %>
+            <td><%=rait["tottal_prac_mark"].to_i%>|<%=rait["tottal_lab_mark"].to_i%></td>
+            <% @marks += rait["tottal_prac_mark"].to_f %>
+            <% @marks += rait["tottal_lab_mark"].to_f %>
+            <% @count += 2 %>
+          <% end %>
+        <% end %>
+        <td><%=@marks/@count%></td>
+      </tr>
+    </tbody>
+  </table>
+
+<% end %>
