@@ -2,12 +2,12 @@
 
 <p>
   <strong>Semester:</strong>
-  <%= @classes_timetable.semester %>
+  <%= @classes_timetable.semester.id %>
 </p>
 
 <p>
   <strong>Subgroup:</strong>
-  <%= @classes_timetable.subgroup %>
+  <%= @classes_timetable.subgroup.name %>
 </p>
 
 <%= link_to 'Edit', edit_classes_timetable_path(@classes_timetable) %> |

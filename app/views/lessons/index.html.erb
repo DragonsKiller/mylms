@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Lessons</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Lesson date</th>
+      <th>Lesson time</th>
+      <th>Semester</th>
+      <th>Group</th>
+      <th>Subject</th>
+      <th>Teacher</th>
+      <th>Classroom</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lessons.each do |lesson| %>
+      <tr>
+        <td><%= lesson.lesson_type %></td>
+        <td><%= lesson.lesson_date %></td>
+        <td><%= lesson.lesson_time.strftime("%H:%M") %></td>
+        <td><%= lesson.classes_timetable.semester.id %></td>
+        <td><%= lesson.classes_timetable.subgroup.name %></td>
+        <td><%= lesson.subject.name %></td>
+        <td><%= lesson.teacher.last_name+' '+lesson.teacher.first_name+' '+lesson.teacher.second_name %></td>
+        <td><%= lesson.classroom.campus.id.to_s+' - '+lesson.classroom.number %></td>
+        <td><%= link_to 'Show', lesson %></td>
+        <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
+        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lesson', new_lesson_path %>

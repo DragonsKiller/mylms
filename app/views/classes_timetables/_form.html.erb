@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= form.label :semester_id %>
-    <%= form.text_field :semester_id, id: :classes_timetable_semester_id %>
+    <%= form.select :semester_id, Semester.all.collect { |p| [ p.id, p.id ] } %>
   </div>
 
   <div class="field">
     <%= form.label :subgroup_id %>
-    <%= form.text_field :subgroup_id, id: :classes_timetable_subgroup_id %>
+    <%= form.select :subgroup_id, Subgroup.all.collect { |p| [ p.name, p.id ] } %>
   </div>
 
   <div class="actions">

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  lesson_date: 2018-05-08
+  lesson_time: 2018-05-08 19:15:37
+  classes_timetable: one
+  subject: one
+  teacher: one
+  classroom: one
+
+two:
+  type: 
+  lesson_date: 2018-05-08
+  lesson_time: 2018-05-08 19:15:37
+  classes_timetable: two
+  subject: two
+  teacher: two
+  classroom: two

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508160706) do
+ActiveRecord::Schema.define(version: 20180508181624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,22 @@ ActiveRecord::Schema.define(version: 20180508160706) do
     t.index ["academic_plan_id"], name: "index_laboratory_works_on_academic_plan_id"
     t.index ["student_id"], name: "index_laboratory_works_on_student_id"
     t.index ["teacher_id"], name: "index_laboratory_works_on_teacher_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string "lesson_type"
+    t.date "lesson_date"
+    t.time "lesson_time"
+    t.bigint "classes_timetable_id"
+    t.bigint "subject_id"
+    t.bigint "teacher_id"
+    t.bigint "classroom_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["classes_timetable_id"], name: "index_lessons_on_classes_timetable_id"
+    t.index ["classroom_id"], name: "index_lessons_on_classroom_id"
+    t.index ["subject_id"], name: "index_lessons_on_subject_id"
+    t.index ["teacher_id"], name: "index_lessons_on_teacher_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -237,6 +253,10 @@ ActiveRecord::Schema.define(version: 20180508160706) do
   add_foreign_key "laboratory_works", "academic_plans"
   add_foreign_key "laboratory_works", "students"
   add_foreign_key "laboratory_works", "teachers"
+  add_foreign_key "lessons", "classes_timetables"
+  add_foreign_key "lessons", "classrooms"
+  add_foreign_key "lessons", "subjects"
+  add_foreign_key "lessons", "teachers"
   add_foreign_key "practical_works", "academic_plans"
   add_foreign_key "practical_works", "students"
   add_foreign_key "practical_works", "teachers"

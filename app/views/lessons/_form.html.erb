@@ -1,0 +1,52 @@
+<%= form_with(model: lesson, local: true) do |form| %>
+  <% if lesson.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+
+      <ul>
+      <% lesson.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :lesson_type %>
+    <%= form.select :lesson_type, options_for_select([['Lecture', 'Lecture'],['Practical', 'Practical'], ['Laboratory', 'Laboratory']], 1) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lesson_date %>
+    <%= form.date_select :lesson_date, id: :lesson_lesson_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lesson_time %>
+    <%= form.time_select :lesson_time, id: :lesson_lesson_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :classes_timetable_id %>
+    <%= form.select :classes_timetable_id, ClassesTimetable.all.collect { |p| [ "Semester: "+p.semester.id.to_s+", Group: "+p.subgroup.name, p.id ] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :subject_id %>
+    <%= form.select :subject_id, Subject.all.collect { |p| [ p.name, p.id ] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :teacher_id %>
+    <%= form.select :teacher_id, Teacher.all.collect { |p| [ p.last_name+' '+p.first_name+' '+p.second_name, p.id ] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :classroom_id %>
+    <%= form.select :classroom_id, Classroom.all.collect { |p| [ 'Campus: '+p.campus.id.to_s+", Classroom: "+p.number, p.id ] } %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -10,11 +10,11 @@
   </thead>
 
   <tbody>
-    <% @campus.each do |campu| %>
+    <% @campus.each do |campus| %>
       <tr>
-        <td><%= link_to 'Show', campu %></td>
-        <td><%= link_to 'Edit', edit_campu_path(campu) %></td>
-        <td><%= link_to 'Destroy', campu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', campus %></td>
+        <td><%= link_to 'Edit', edit_campu_path(campus) %></td>
+        <td><%= link_to 'Destroy', campus, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -14,8 +14,8 @@
   <tbody>
     <% @classes_timetables.each do |classes_timetable| %>
       <tr>
-        <td><%= classes_timetable.semester %></td>
-        <td><%= classes_timetable.subgroup %></td>
+        <td><%= classes_timetable.semester.id %></td>
+        <td><%= classes_timetable.subgroup.name %></td>
         <td><%= link_to 'Show', classes_timetable %></td>
         <td><%= link_to 'Edit', edit_classes_timetable_path(classes_timetable) %></td>
         <td><%= link_to 'Destroy', classes_timetable, method: :delete, data: { confirm: 'Are you sure?' } %></td>

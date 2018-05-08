@@ -19,7 +19,7 @@
   <div class="field">
     <%= form.label :subject_id %>
     <%= form.select :subject_id, Subject.all.collect { |p| [ p.name, p.id ] } %>
-  </div
+  </div>
 
   <div class="actions">
     <%= form.submit %>
