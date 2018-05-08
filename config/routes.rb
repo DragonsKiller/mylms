@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :classes_timetables
   resources :academic_plans
   resources :semesters
   resources :teachers_project_memberships

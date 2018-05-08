@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @classes_timetable.semester %>
+</p>
+
+<p>
+  <strong>Subgroup:</strong>
+  <%= @classes_timetable.subgroup %>
+</p>
+
+<%= link_to 'Edit', edit_classes_timetable_path(@classes_timetable) %> |
+<%= link_to 'Back', classes_timetables_path %>
