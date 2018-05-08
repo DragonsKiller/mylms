@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508154549) do
+ActiveRecord::Schema.define(version: 20180508160706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,11 @@ ActiveRecord::Schema.define(version: 20180508154549) do
     t.integer "brigade_admin_id"
   end
 
+  create_table "campus", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -71,6 +76,14 @@ ActiveRecord::Schema.define(version: 20180508154549) do
     t.datetime "updated_at", null: false
     t.index ["semester_id"], name: "index_classes_timetables_on_semester_id"
     t.index ["subgroup_id"], name: "index_classes_timetables_on_subgroup_id"
+  end
+
+  create_table "classrooms", force: :cascade do |t|
+    t.string "number"
+    t.bigint "campus_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campus_id"], name: "index_classrooms_on_campus_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -220,6 +233,7 @@ ActiveRecord::Schema.define(version: 20180508154549) do
   add_foreign_key "brigade_memberships", "students"
   add_foreign_key "classes_timetables", "semesters"
   add_foreign_key "classes_timetables", "subgroups"
+  add_foreign_key "classrooms", "campus", column: "campus_id"
   add_foreign_key "laboratory_works", "academic_plans"
   add_foreign_key "laboratory_works", "students"
   add_foreign_key "laboratory_works", "teachers"
