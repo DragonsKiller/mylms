@@ -1,6 +1,12 @@
 <h1>Editing Laboratory Work</h1>
 
-<%= render 'form', laboratory_work: @laboratory_work %>
+<%= render 'form' %>
 
-<%= link_to 'Show', @laboratory_work %> |
-<%= link_to 'Back', laboratory_works_path %>
+
+<% if student_signed_in? %>
+  <%= link_to 'Show', [@laboratory_work.student, @laboratory_work] %> |
+  <%= link_to 'Back', student_laboratory_works_path(@laboratory_work.student) %>
+<% elsif teacher_signed_in? %>
+  <%= link_to 'Show', [@laboratory_work.teacher, @laboratory_work] %> |
+  <%= link_to 'Back', teacher_laboratory_works_path(@laboratory_work.teacher) %>
+<% end %>

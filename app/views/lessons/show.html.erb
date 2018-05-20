@@ -40,6 +40,9 @@
   <strong>Classroom:</strong>
   <%= @lesson.classroom.number %>
 </p>
-
-<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
-<%= link_to 'Back', lessons_path %>
+<% if teacher_signed_in? && request.original_url.include?("teacher") %>
+  <%= link_to 'Edit', edit_teacher_lesson_path(@lesson.teacher, @lesson) %> |
+  <%= link_to 'Back', teacher_lessons_path(@lesson.teacher) %>
+<% else %>
+  <%= link_to 'Back', classes_timetable_lessons_path(@lesson.classes_timetable) %>
+<% end %>

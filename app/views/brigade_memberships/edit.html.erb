@@ -1,6 +1,6 @@
 <h1>Editing Brigade Membership</h1>
 
-<%= render 'form', brigade_membership: @brigade_membership %>
+<%= render 'form' %>
 
-<%= link_to 'Show', @brigade_membership %> |
-<%= link_to 'Back', brigade_memberships_path %>
+<%= link_to 'Show', [@brigade_membership.brigade, @brigade_membership] %> |
+<%= link_to 'Back', brigade_brigade_memberships_path(@brigade_membership.brigade) %>

@@ -1,5 +1,47 @@
 <h1>New Practical Work</h1>
 
-<%= render 'form', practical_work: @practical_work %>
+<%= form_for([@practical_work.teacher, @practical_work]) do |form| %>
+  <% if @practical_work.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practical_work.errors.count, "error") %> prohibited this practical_work from being saved:</h2>
 
-<%= link_to 'Back', practical_works_path %>
+      <ul>
+      <% @practical_work.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :practical_work_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :practical_work_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label 'group_id' %>
+    <%= form.select 'group_id', Group.all.collect { |p| [ p.name, p.id ] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :academic_plan_id %>
+    <%= form.select :academic_plan_id, AcademicPlan.all.collect { |p| [ 'Semester: '+p.semester_id.to_s+', Subject: '+p.subject.name, p.id ] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Show', [@practical_work.teacher, @practical_work] %> |
+<%= link_to 'Back', teacher_practical_works_path(@practical_work.teacher) %>

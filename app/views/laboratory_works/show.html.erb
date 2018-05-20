@@ -15,16 +15,17 @@
   <%= @laboratory_work.mark %>
 </p>
 
-<p>
-  <strong>Student:</strong>
-  <%= @laboratory_work.student.last_name+' '+@laboratory_work.student.first_name+' '+@laboratory_work.student.second_name %>
-</p>
-
-<p>
-  <strong>Teacher:</strong>
-  <%= @laboratory_work.teacher.last_name+' '+@laboratory_work.teacher.first_name+' '+@laboratory_work.teacher.second_name %>
-</p>
-
+<% if teacher_signed_in? %>
+  <p>
+    <strong>Student:</strong>
+    <%= @laboratory_work.student.last_name+' '+@laboratory_work.student.first_name+' '+@laboratory_work.student.second_name %>
+  </p>
+<% elsif student_signed_in? %>
+  <p>
+    <strong>Teacher:</strong>
+    <%= @laboratory_work.teacher.last_name+' '+@laboratory_work.teacher.first_name+' '+@laboratory_work.teacher.second_name %>
+  </p>
+<% end %>
 <p>
   <strong>Semester:</strong>
   <%= @laboratory_work.academic_plan.semester_id %>
@@ -45,5 +46,10 @@
   <%= @laboratory_work.load_date %>
 </p>
 
-<%= link_to 'Edit', edit_laboratory_work_path(@laboratory_work) %> |
-<%= link_to 'Back', laboratory_works_path %>
+<% if student_signed_in? %>
+  <%= link_to 'Edit', edit_student_laboratory_work_path(current_student, @laboratory_work) %> |
+  <%= link_to 'Back', student_laboratory_works_path(current_student) %>
+<% elsif teacher_signed_in? %>
+  <%= link_to 'Edit', edit_teacher_laboratory_work_path(current_teacher, @laboratory_work) %> |
+  <%= link_to 'Back', teacher_laboratory_works_path(current_teacher) %>
+<% end %>

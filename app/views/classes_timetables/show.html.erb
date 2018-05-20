@@ -10,5 +10,8 @@
   <%= @classes_timetable.subgroup.name %>
 </p>
 
-<%= link_to 'Edit', edit_classes_timetable_path(@classes_timetable) %> |
-<%= link_to 'Back', classes_timetables_path %>
+<% if student_signed_in? %>
+  <%= link_to 'Back', student_classes_timetables_path(current_student) %>
+<% elsif teacher_signed_in? %>
+  <%= link_to 'Back', teacher_classes_timetables_path(current_teacher) %>
+<% end %>

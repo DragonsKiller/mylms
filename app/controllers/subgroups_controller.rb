@@ -1,17 +1,9 @@
 class SubgroupsController < ApplicationController
-  before_action :set_subgroup, only: [:show, :edit, :update, :destroy]
   # GET /subgroups
   # GET /subgroups.json
   def index
    group = Group.find(params[:group_id])
-
    @subgroups = group.subgroups
-
-   respond_to do |format|
-     format.html # index.html.erb
-
-     format.xml  { render :xml => @subgroups }
-   end
   end
 
   # GET /subgroups/1
@@ -72,7 +64,7 @@ class SubgroupsController < ApplicationController
 
     @subgroup = group.subgroups.find(params[:id])
     respond_to do |format|
-      if @subgroup.update_attributes(subgroup_params)
+      if @subgroup.update(subgroup_params)
         format.html { redirect_to([@subgroup.group, @subgroup], :notice => 'Comment was successfully updated.') }
         format.xml  { head :ok }
       else

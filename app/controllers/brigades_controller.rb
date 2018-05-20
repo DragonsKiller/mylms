@@ -4,7 +4,7 @@ class BrigadesController < ApplicationController
   # GET /brigades
   # GET /brigades.json
   def index
-    @brigades = Brigade.all
+    @brigades = current_student.brigades
   end
 
   # GET /brigades/1
@@ -24,15 +24,18 @@ class BrigadesController < ApplicationController
   # POST /brigades
   # POST /brigades.json
   def create
-    @brigade = Brigade.new(brigade_params)
+    @brigade = Brigade.new(brigade_params.merge(brigade_admin_id: current_student.id))
 
     respond_to do |format|
       if @brigade.save
-        format.html { redirect_to @brigade, notice: 'Brigade was successfully created.' }
-        format.json { render :show, status: :created, location: @brigade }
+        @brigade_membership = @brigade.brigade_memberships.create({brigade_id: @brigade.id, student_id: current_student.id})
+        if @brigade_membership.save
+          format.html { redirect_to  @brigade, notice: 'Brigade was successfully created.' }
+        else
+          format.html { render :new }
+        end
       else
         format.html { render :new }
-        format.json { render json: @brigade.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +46,8 @@ class BrigadesController < ApplicationController
     respond_to do |format|
       if @brigade.update(brigade_params)
         format.html { redirect_to @brigade, notice: 'Brigade was successfully updated.' }
-        format.json { render :show, status: :ok, location: @brigade }
       else
         format.html { render :edit }
-        format.json { render json: @brigade.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,7 +58,6 @@ class BrigadesController < ApplicationController
     @brigade.destroy
     respond_to do |format|
       format.html { redirect_to brigades_url, notice: 'Brigade was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -69,6 +69,6 @@ class BrigadesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def brigade_params
-      params.require(:brigade).permit(:name, :brigade_admin_id)
+      params.require(:brigade).permit(:name)
     end
 end

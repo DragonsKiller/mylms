@@ -1,38 +1,63 @@
 class LaboratoryWorksController < ApplicationController
-  before_action :set_laboratory_work, only: [:show, :edit, :update, :destroy]
-
   # GET /laboratory_works
   # GET /laboratory_works.json
   def index
-    @laboratory_works = LaboratoryWork.all
+    if student_signed_in?
+      @laboratory_works = current_student.laboratory_works
+    elsif teacher_signed_in?
+      @laboratory_works = current_teacher.laboratory_works
+    end
   end
 
   # GET /laboratory_works/1
   # GET /laboratory_works/1.json
   def show
+    if student_signed_in?
+      set_laboratory_work_for_student
+    elsif teacher_signed_in?
+      set_laboratory_work_for_teacher
+    end
   end
 
   # GET /laboratory_works/new
   def new
-    @laboratory_work = LaboratoryWork.new
+    if student_signed_in?
+      @laboratory_work = current_student.laboratory_works.build
+    elsif teacher_signed_in?
+      @laboratory_work = current_teacher.laboratory_works.build
+    end
   end
 
   # GET /laboratory_works/1/edit
   def edit
+    if student_signed_in?
+      set_laboratory_work_for_student
+    elsif teacher_signed_in?
+      set_laboratory_work_for_teacher
+    end
   end
 
   # POST /laboratory_works
-  # POST /laboratory_works.json
+  # POST /laboratory    respond_to do |format|
   def create
-    @laboratory_work = LaboratoryWork.new(laboratory_work_params)
+    if teacher_signed_in?
+      create_for_teacher
 
-    respond_to do |format|
-      if @laboratory_work.save
-        format.html { redirect_to @laboratory_work, notice: 'Laboratory work was successfully created.' }
-        format.json { render :show, status: :created, location: @laboratory_work }
-      else
-        format.html { render :new }
-        format.json { render json: @laboratory_work.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @laboratory_work.save
+          format.html { redirect_to([@laboratory_work.teacher, @laboratory_work], notice: 'Laboratory work was successfully created.') }
+        else
+          format.html { render :new }
+        end
+      end
+    end
+  end
+
+  def create_for_teacher
+    group = Group.find(get_group[:group_id])
+    group.subgroups.each do |subgroup|
+      subgroup.students.each do |student|
+        @laboratory_work = current_teacher.laboratory_works.create(get_params_for_teacher.merge({student_id: student.id}))
       end
     end
   end
@@ -40,13 +65,33 @@ class LaboratoryWorksController < ApplicationController
   # PATCH/PUT /laboratory_works/1
   # PATCH/PUT /laboratory_works/1.json
   def update
+    if student_signed_in?
+      update_for_student
+    elsif teacher_signed_in?
+      update_for_teacher
+    end
+  end
+
+  def update_for_student
+    if teacher_signed_in?
+      set_laboratory_work_for_student
+      respond_to do |format|
+        if @laboratory_work.update(get_params_for_student.merge({load_date: Date.today}))
+          format.html { redirect_to([@laboratory_work.student, @laboratory_work], :notice => 'Laboratory work was successfully updated.') }
+        else
+          format.html { render :edit }
+        end
+      end
+    end
+  end
+
+  def update_for_teacher
+    set_laboratory_work_for_teacher
     respond_to do |format|
-      if @laboratory_work.update(laboratory_work_params)
-        format.html { redirect_to @laboratory_work, notice: 'Laboratory work was successfully updated.' }
-        format.json { render :show, status: :ok, location: @laboratory_work }
+      if @laboratory_work.update(get_params_for_teacher)
+        format.html { redirect_to([@laboratory_work.teacher, @laboratory_work], :notice => 'Laboratory work was successfully updated.') }
       else
         format.html { render :edit }
-        format.json { render json: @laboratory_work.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,21 +99,37 @@ class LaboratoryWorksController < ApplicationController
   # DELETE /laboratory_works/1
   # DELETE /laboratory_works/1.json
   def destroy
+    set_laboratory_work_for_teacher
     @laboratory_work.destroy
     respond_to do |format|
-      format.html { redirect_to laboratory_works_url, notice: 'Laboratory work was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to teacher_laboratory_works_url, notice: 'Laboratory work was successfully destroyed.' }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_laboratory_work
-      @laboratory_work = LaboratoryWork.find(params[:id])
+    def set_laboratory_work_for_teacher
+      @laboratory_work = current_teacher.laboratory_works.find(params[:id])
+    end
+
+    def set_laboratory_work_for_student
+      @laboratory_work = current_student.laboratory_works.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def laboratory_work_params
-      params.require(:laboratory_work).permit(:name, :description, :mark, :document, :student_id, :teacher_id, :academic_plan_id, :end_date, :load_date)
+    def get_params_for_teacher_create
+      params.require(:laboratory_work).permit(:name, :description, :group, :academic_plan_id, :end_date)
+    end
+
+    def get_params_for_teacher
+      params.require(:laboratory_work).permit(:name, :description, :mark, :academic_plan_id, :end_date)
+    end
+
+    def get_group
+      params.require(:laboratory_work).permit(:group_id)
+    end
+
+    def get_params_for_student
+      params.require(:laboratory_work).permit(:document)
     end
 end

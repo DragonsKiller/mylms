@@ -1,10 +1,10 @@
-<%= form_with(model: brigade_membership, local: true) do |form| %>
-  <% if brigade_membership.errors.any? %>
+<%= form_for([@brigade_membership.brigade, @brigade_membership]) do |form| %>
+  <% if @brigade_membership.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(brigade_membership.errors.count, "error") %> prohibited this brigade_membership from being saved:</h2>
+      <h2><%= pluralize(@brigade_membership.errors.count, "error") %> prohibited this brigade_membership from being saved:</h2>
 
       <ul>
-      <% brigade_membership.errors.full_messages.each do |message| %>
+      <% @brigade_membership.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -13,11 +13,6 @@
 
   <div class="field">
     <%= form.select :student_id, Student.all.collect { |p| [ p.last_name+' '+p.first_name+' '+p.second_name, p.id ] } %>
-  </div>
-
-  <div class="field">
-    <%= form.label :brigade_id %>
-    <%= form.select :brigade_id, Brigade.all.collect { |p| [ p.name, p.id ] } %>
   </div>
 
   <div class="actions">

@@ -8,37 +8,72 @@
       <th>Name</th>
       <th>Description</th>
       <th>Mark</th>
-      <th>Student</th>
-      <th>Teacher</th>
+      <% if teacher_signed_in? %>
+        <th>Student</th>
+      <% elsif student_signed_in? %>
+        <th>Teacher</th>
+      <% end %>
       <th>Semester</th>
       <th>Subject</th>
       <th>End date</th>
+      <th>Load date</th>
       <th colspan="5"></th>
     </tr>
   </thead>
-
-  <tbody>
-    <% @practical_works.each do |practical_work| %>
-      <tr>
-        <td><%= practical_work.name %></td>
-        <td><%= practical_work.description %></td>
-        <td><%= practical_work.mark %></td>
-        <td><%= practical_work.student.last_name+' '+practical_work.student.first_name+' '+practical_work.student.second_name %></td>
-        <td><%= practical_work.teacher.last_name+' '+practical_work.teacher.first_name+' '+practical_work.teacher.second_name %></td>
-        <td><%= practical_work.academic_plan.semester_id %></td>
-        <td><%= practical_work.academic_plan.subject.name %></td>
-        <td><%= practical_work.end_date %></td>
-        <td><%= practical_work.load_date %></td>
-        <td><%= link_to "Read", pdfjs.minimal_path(file: practical_work.document_url) %></td>
-        <td><%= link_to "Download", pdfjs.full_path(file: practical_work.document_url) %></td>
-        <td><%= link_to 'Show', practical_work %></td>
-        <td><%= link_to 'Edit', edit_practical_work_path(practical_work) %></td>
-        <td><%= link_to 'Destroy', practical_work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+  <% if student_signed_in? %>
+    <tbody>
+      <% @practical_works.each do |practical_work| %>
+        <tr>
+          <td><%= practical_work.name %></td>
+          <td><%= practical_work.description %></td>
+          <td><%= practical_work.mark %></td>
+          <td><%= practical_work.teacher.last_name+' '+practical_work.teacher.first_name+' '+practical_work.teacher.second_name %></td>
+          <td><%= practical_work.academic_plan.semester_id %></td>
+          <td><%= practical_work.academic_plan.subject.name %></td>
+          <td><%= practical_work.end_date %></td>
+          <td><%= practical_work.load_date %></td>
+          <td><%= link_to 'Show', [practical_work.student, practical_work] %></td>
+          <td><%= link_to 'Edit', edit_student_practical_work_path(practical_work.student, practical_work) %></td>
+          <% if !practical_work[:document].nil? %>
+            <td><%= link_to "Read", pdfjs.minimal_path(file: practical_work.document_url) %></td>
+            <td><%= link_to "Download", pdfjs.full_path(file: practical_work.document_url) %></td>
+          <% else %>
+            <td><td>
+            <td><td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  <% elsif teacher_signed_in? %>
+    <tbody>
+      <% @practical_works.each do |practical_work| %>
+        <tr>
+          <td><%= practical_work.name %></td>
+          <td><%= practical_work.description %></td>
+          <td><%= practical_work.mark %></td>
+          <td><%= practical_work.student.last_name+' '+practical_work.student.first_name+' '+practical_work.student.second_name %></td>
+          <td><%= practical_work.academic_plan.semester_id %></td>
+          <td><%= practical_work.academic_plan.subject.name %></td>
+          <td><%= practical_work.end_date %></td>
+          <td><%= practical_work.load_date %></td>
+          <td><%= link_to 'Show', [practical_work.teacher, practical_work] %></td>
+          <td><%= link_to 'Edit', edit_teacher_practical_work_path(practical_work.teacher, practical_work) %></td>
+          <td><%= link_to 'Destroy', [practical_work.teacher, practical_work], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if !practical_work[:document].nil? %>
+            <td><%= link_to "Read", pdfjs.minimal_path(file: practical_work.document_url) %></td>
+            <td><%= link_to "Download", pdfjs.full_path(file: practical_work.document_url) %></td>
+          <% else %>
+            <td><td>
+            <td><td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
 </table>
 
 <br>
 
-<%= link_to 'New Practical Work', new_practical_work_path %>
+<% if teacher_signed_in? %>
+  <%= link_to 'New Practical Work', new_teacher_practical_work_path %>
+<% end %>

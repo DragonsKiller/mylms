@@ -1,6 +1,39 @@
 <%= link_to('Logout teacher', destroy_teacher_session_path, method: :delete) %>
 <%= link_to('Logout student', destroy_student_session_path, method: :delete) %>
+<%= link_to 'login_student', new_student_session_path %>
+<%= link_to 'login_teacher', new_teacher_session_path %>
 
+<% if teacher_signed_in? %>
+  <li>
+    <%= link_to 'Edit registration', edit_teacher_registration_path %>
+  </li>
+  <%= link_to 'laboratory_works', teacher_laboratory_works_path(current_teacher) %>
+  <%= link_to 'practical_works', teacher_practical_works_path(current_teacher) %>
+  <%= link_to 'My lessons', teacher_lessons_path(current_teacher) %>
+<% else %>
+  <li>
+    <%= link_to 'Register teacher', new_teacher_registration_path  %>
+  </li>
+<% end %>
+
+<% if student_signed_in? %>
+  <li>
+    <%= link_to 'Edit registration', edit_student_registration_path %>
+  </li>
+  <%= link_to 'laboratory_works', student_laboratory_works_path(current_student) %>
+  <%= link_to 'practical_works', student_practical_works_path(current_student) %>
+  <%= link_to 'My brigades', brigades_path %>
+<% else %>
+  <li>
+    <%= link_to 'Register student', new_student_registration_path  %>
+  </li>
+<% end %>
+<p>
+<%= link_to 'Subjects', subjects_path %>
+<%= link_to 'Classes Timetables',  classes_timetables_path %>
+<%= link_to 'Raitings',  raitings_path %>
+<%= link_to 'Groups',  groups_path %>
+<p>
 <% @posts.each do |post| %>
      <h1><%= link_to "post.title", post %></h1>
      <p><%= post.content %></p>

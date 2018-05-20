@@ -1,6 +1,12 @@
 <h1>Editing Practical Work</h1>
 
-<%= render 'form', practical_work: @practical_work %>
+<%= render 'form' %>
 
-<%= link_to 'Show', @practical_work %> |
-<%= link_to 'Back', practical_works_path %>
+
+<% if student_signed_in? %>
+  <%= link_to 'Show', [@practical_work.student, @practical_work] %> |
+  <%= link_to 'Back', student_practical_works_path(@practical_work.student) %>
+<% elsif teacher_signed_in? %>
+  <%= link_to 'Show', [@practical_work.teacher, @practical_work] %> |
+  <%= link_to 'Back', teacher_practical_works_path(@practical_work.teacher) %>
+<% end %>

@@ -2,5 +2,5 @@
 
 <%= render 'form', lesson: @lesson %>
 
-<%= link_to 'Show', @lesson %> |
-<%= link_to 'Back', lessons_path %>
+<%= link_to 'Show', [@lesson.teacher, @lesson] %> |
+<%= link_to 'Back', teacher_lessons_path(current_teacher) %>

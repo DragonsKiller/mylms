@@ -8,37 +8,72 @@
       <th>Name</th>
       <th>Description</th>
       <th>Mark</th>
-      <th>Student</th>
-      <th>Teacher</th>
+      <% if teacher_signed_in? %>
+        <th>Student</th>
+      <% elsif student_signed_in? %>
+        <th>Teacher</th>
+      <% end %>
       <th>Semester</th>
       <th>Subject</th>
       <th>End date</th>
+      <th>Load date</th>
       <th colspan="5"></th>
     </tr>
   </thead>
-
-  <tbody>
-    <% @laboratory_works.each do |laboratory_work| %>
-      <tr>
-        <td><%= laboratory_work.name %></td>
-        <td><%= laboratory_work.description %></td>
-        <td><%= laboratory_work.mark %></td>
-        <td><%= laboratory_work.student.last_name+' '+laboratory_work.student.first_name+' '+laboratory_work.student.second_name %></td>
-        <td><%= laboratory_work.teacher.last_name+' '+laboratory_work.teacher.first_name+' '+laboratory_work.teacher.second_name %></td>
-        <td><%= laboratory_work.academic_plan.semester_id %></td>
-        <td><%= laboratory_work.academic_plan.subject.name %></td>
-        <td><%= laboratory_work.end_date %></td>
-        <td><%= laboratory_work.load_date %></td>
-        <td><%= link_to "Read", pdfjs.minimal_path(file: laboratory_work.document_url) %></td>
-        <td><%= link_to "Download", pdfjs.full_path(file: laboratory_work.document_url) %></td>
-        <td><%= link_to 'Show', laboratory_work %></td>
-        <td><%= link_to 'Edit', edit_laboratory_work_path(laboratory_work) %></td>
-        <td><%= link_to 'Destroy', laboratory_work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+  <% if student_signed_in? %>
+    <tbody>
+      <% @laboratory_works.each do |laboratory_work| %>
+        <tr>
+          <td><%= laboratory_work.name %></td>
+          <td><%= laboratory_work.description %></td>
+          <td><%= laboratory_work.mark %></td>
+          <td><%= laboratory_work.teacher.last_name+' '+laboratory_work.teacher.first_name+' '+laboratory_work.teacher.second_name %></td>
+          <td><%= laboratory_work.academic_plan.semester_id %></td>
+          <td><%= laboratory_work.academic_plan.subject.name %></td>
+          <td><%= laboratory_work.end_date %></td>
+          <td><%= laboratory_work.load_date %></td>
+          <td><%= link_to 'Show', [laboratory_work.student, laboratory_work] %></td>
+          <td><%= link_to 'Edit', edit_student_laboratory_work_path(laboratory_work.student, laboratory_work) %></td>
+          <% if !laboratory_work[:document].nil? %>
+            <td><%= link_to "Read", pdfjs.minimal_path(file: laboratory_work.document_url) %></td>
+            <td><%= link_to "Download", pdfjs.full_path(file: laboratory_work.document_url) %></td>
+          <% else %>
+            <td><td>
+            <td><td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  <% elsif teacher_signed_in? %>
+    <tbody>
+      <% @laboratory_works.each do |laboratory_work| %>
+        <tr>
+          <td><%= laboratory_work.name %></td>
+          <td><%= laboratory_work.description %></td>
+          <td><%= laboratory_work.mark %></td>
+          <td><%= laboratory_work.student.last_name+' '+laboratory_work.student.first_name+' '+laboratory_work.student.second_name %></td>
+          <td><%= laboratory_work.academic_plan.semester_id %></td>
+          <td><%= laboratory_work.academic_plan.subject.name %></td>
+          <td><%= laboratory_work.end_date %></td>
+          <td><%= laboratory_work.load_date %></td>
+          <td><%= link_to 'Show', [laboratory_work.teacher, laboratory_work] %></td>
+          <td><%= link_to 'Edit', edit_teacher_laboratory_work_path(laboratory_work.teacher, laboratory_work) %></td>
+          <td><%= link_to 'Destroy', [laboratory_work.teacher, laboratory_work], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if !laboratory_work[:document].nil? %>
+            <td><%= link_to "Read", pdfjs.minimal_path(file: laboratory_work.document_url) %></td>
+            <td><%= link_to "Download", pdfjs.full_path(file: laboratory_work.document_url) %></td>
+          <% else %>
+            <td><td>
+            <td><td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
 </table>
 
 <br>
 
-<%= link_to 'New Laboratory Work', new_laboratory_work_path %>
+<% if teacher_signed_in? %>
+  <%= link_to 'New Laboratory Work', new_teacher_laboratory_work_path %>
+<% end %>

@@ -15,16 +15,17 @@
   <%= @practical_work.mark %>
 </p>
 
-<p>
-  <strong>Student:</strong>
-  <%= @practical_work.student.last_name+' '+@practical_work.student.first_name+' '+@practical_work.student.second_name %>
-</p>
-
-<p>
-  <strong>Teacher:</strong>
-  <%= @practical_work.teacher.last_name+' '+@practical_work.teacher.first_name+' '+@practical_work.teacher.second_name %>
-</p>
-
+<% if teacher_signed_in? %>
+  <p>
+    <strong>Student:</strong>
+    <%= @practical_work.student.last_name+' '+@practical_work.student.first_name+' '+@practical_work.student.second_name %>
+  </p>
+<% elsif student_signed_in? %>
+  <p>
+    <strong>Teacher:</strong>
+    <%= @practical_work.teacher.last_name+' '+@practical_work.teacher.first_name+' '+@practical_work.teacher.second_name %>
+  </p>
+<% end %>
 <p>
   <strong>Semester:</strong>
   <%= @practical_work.academic_plan.semester_id %>
@@ -43,7 +44,12 @@
 <p>
   <strong>Load date:</strong>
   <%= @practical_work.load_date %>
-</p
+</p>
 
-<%= link_to 'Edit', edit_practical_work_path(@practical_work) %> |
-<%= link_to 'Back', practical_works_path %>
+<% if student_signed_in? %>
+  <%= link_to 'Edit', edit_student_practical_work_path(current_student, @practical_work) %> |
+  <%= link_to 'Back', student_practical_works_path(current_student) %>
+<% elsif teacher_signed_in? %>
+  <%= link_to 'Edit', edit_teacher_practical_work_path(current_teacher, @practical_work) %> |
+  <%= link_to 'Back', teacher_practical_works_path(current_teacher) %>
+<% end %>
