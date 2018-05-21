@@ -1,4 +1,5 @@
 class Student < ApplicationRecord
+  acts_as_target
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -18,4 +19,7 @@ class Student < ApplicationRecord
   has_many :practical_works
   has_many :teachers, through: :practical_works
   has_many :academic_plans, through: :practical_works
+
+  has_many :chat_rooms, dependent: :destroy
+  has_many :messages, dependent: :destroy
 end

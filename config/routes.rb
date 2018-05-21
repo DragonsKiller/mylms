@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/adminka', as: 'rails_admin'
   root 'posts#index'
+  resources :chat_rooms, only: [:new, :create, :show, :index]
   resources :subjects, only: [:index, :show]
   resources :posts, only: [:index,  :show]
   resources :classes_timetables, only: [:index] do

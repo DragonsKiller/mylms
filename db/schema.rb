@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508181624) do
+ActiveRecord::Schema.define(version: 20180521002547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(version: 20180508181624) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "chat_rooms", force: :cascade do |t|
+    t.string "title"
+    t.bigint "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_chat_rooms_on_student_id"
+  end
+
   create_table "classes_timetables", force: :cascade do |t|
     t.bigint "semester_id"
     t.bigint "subgroup_id"
@@ -123,6 +131,38 @@ ActiveRecord::Schema.define(version: 20180508181624) do
     t.index ["classroom_id"], name: "index_lessons_on_classroom_id"
     t.index ["subject_id"], name: "index_lessons_on_subject_id"
     t.index ["teacher_id"], name: "index_lessons_on_teacher_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.bigint "student_id"
+    t.bigint "chat_room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
+    t.index ["student_id"], name: "index_messages_on_student_id"
+  end
+
+  create_table "notifications", id: :serial, force: :cascade do |t|
+    t.string "target_type", null: false
+    t.integer "target_id", null: false
+    t.string "notifiable_type", null: false
+    t.integer "notifiable_id", null: false
+    t.string "key", null: false
+    t.string "group_type"
+    t.integer "group_id"
+    t.integer "group_owner_id"
+    t.string "notifier_type"
+    t.integer "notifier_id"
+    t.text "parameters"
+    t.datetime "opened_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_owner_id"], name: "index_notifications_on_group_owner_id"
+    t.index ["group_type", "group_id"], name: "index_notifications_on_group_type_and_group_id"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["notifier_type", "notifier_id"], name: "index_notifications_on_notifier_type_and_notifier_id"
+    t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -214,6 +254,24 @@ ActiveRecord::Schema.define(version: 20180508181624) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "subscriptions", id: :serial, force: :cascade do |t|
+    t.string "target_type", null: false
+    t.integer "target_id", null: false
+    t.string "key", null: false
+    t.boolean "subscribing", default: true, null: false
+    t.boolean "subscribing_to_email", default: true, null: false
+    t.datetime "subscribed_at"
+    t.datetime "unsubscribed_at"
+    t.datetime "subscribed_to_email_at"
+    t.datetime "unsubscribed_to_email_at"
+    t.text "optional_targets"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_subscriptions_on_key"
+    t.index ["target_type", "target_id", "key"], name: "index_subscriptions_on_target_type_and_target_id_and_key", unique: true
+    t.index ["target_type", "target_id"], name: "index_subscriptions_on_target_type_and_target_id"
+  end
+
   create_table "teachers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -243,10 +301,16 @@ ActiveRecord::Schema.define(version: 20180508181624) do
     t.index ["teacher_id"], name: "index_teachers_project_memberships_on_teacher_id"
   end
 
+  create_table "work_notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "academic_plans", "semesters"
   add_foreign_key "academic_plans", "subjects"
   add_foreign_key "brigade_memberships", "brigades"
   add_foreign_key "brigade_memberships", "students"
+  add_foreign_key "chat_rooms", "students"
   add_foreign_key "classes_timetables", "semesters"
   add_foreign_key "classes_timetables", "subgroups"
   add_foreign_key "classrooms", "campus", column: "campus_id"
@@ -257,6 +321,8 @@ ActiveRecord::Schema.define(version: 20180508181624) do
   add_foreign_key "lessons", "classrooms"
   add_foreign_key "lessons", "subjects"
   add_foreign_key "lessons", "teachers"
+  add_foreign_key "messages", "chat_rooms"
+  add_foreign_key "messages", "students"
   add_foreign_key "practical_works", "academic_plans"
   add_foreign_key "practical_works", "students"
   add_foreign_key "practical_works", "teachers"

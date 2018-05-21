@@ -66,3 +66,5 @@ gem 'rails_admin', '~> 1.3'
 gem 'rails_admin_rollincode', git: 'https://github.com/DragonsKiller/rollincode_custom'
 gem 'jquery-ui-rails'
 gem "rails_admin-i18n"
+gem 'activity_notification'
+gem 'whenever', require: false
