@@ -1,5 +1,24 @@
 RailsAdmin.config do |config|
 
+  config.main_app_name = ["Подсистема управления обучением", '']
+
+  config.model 'Student' do
+    list do
+      field :first_name
+      field :second_name
+      field :last_name
+      field :st_id
+      field :subgroup
+    end
+  end
+
+  config.model 'Group' do
+    list do
+      field :name
+      field :subgroups
+    end
+  end
+
   config.authenticate_with do
     warden.authenticate! scope: :admin
   end

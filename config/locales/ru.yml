@@ -1,0 +1,20 @@
+ru:
+  activerecord:
+    models:
+      student: Студент
+      teacher: Преподаватель
+      subject: Учебная дисциплина
+      group: Группа
+      academic_plan: Учебный план
+      practical_work: Практическая работа
+      laboratory_work: Лабораторная работа
+    attributes:
+      student:
+        first_name: "Имя"
+        second_name: "Отчество"
+        last_name: "Фамилия"
+        st_id: "Номер студенческого билета"
+        subgroup: "Подгруппа"
+      group:
+        subgroups: "Подгруппы"
+        name: Номер группы
