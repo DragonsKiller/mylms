@@ -1,13 +1,26 @@
 ru:
   activerecord:
     models:
-      student: Студент
-      teacher: Преподаватель
-      subject: Учебная дисциплина
-      group: Группа
-      academic_plan: Учебный план
-      practical_work: Практическая работа
-      laboratory_work: Лабораторная работа
+      student: Студенты
+      teacher: Преподаватели
+      subject: Учебные дисциплины
+      group: Группы
+      subgroup: Подгруппы
+      academic_plan: Учебный планы
+      practical_work: Практические работы
+      laboratory_work: Лабораторные работы
+      teachers_project_membership: Преподаватели на проекте
+      students_project_membership: Студенты на проекте
+      semester: Семестры
+      raiting: Рейтинги
+      project: Проекты
+      post: Новости
+      lesson: Занятия
+      classroom: Аудитории
+      classes_timetable: Расписания занятий
+      category: Категории новостей
+      campus: Корпуса
+      admin: Администраторы
     attributes:
       student:
         first_name: "Имя"
@@ -15,6 +28,133 @@ ru:
         last_name: "Фамилия"
         st_id: "Номер студенческого билета"
         subgroup: "Подгруппа"
+        email: "Электронная почта"
+        password: "Пароль"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+        password_confirmation: "Подтверждение пароля"
+      teacher:
+        first_name: "Имя"
+        second_name: "Отчество"
+        last_name: "Фамилия"
+        subgroup: "Подгруппа"
+        email: "Электронная почта"
+        password: "Пароль"
+        password_confirmation: "Подтверждение пароля"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      admin:
+        email: "Электронная почта"
+        login: "Логин"
+        password: "Пароль"
+        password_confirmation: "Подтверждение пароля"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      campus:
+        id: "Номер"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      category:
+        name: "Название"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      classes_timetable:
+        semester: "Семестр"
+        subgroup: "Подгруппа"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+        lessons: "Уроки"
+      classroom:
+        number: "Номер"
+        camopus: "Корпус"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      lesson:
+        lesson_type: "Тип"
+        lesson_date: "Дата"
+        subject: "Предмет"
+        teacher: "Преподаватель"
+        classroom: "Аудитория"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      post:
+        title: "Заголовок"
+        description: "Описание"
+        category: "Категория"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      project:
+        name: "Название"
+        project_admin: "Администратор"
+        students_project_memberships: "Студенты"
+        teachers_project_memberships: "Преподаватели"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      raiting:
+        created_at: "Создано в"
+        data: "Данные"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      students_project_membership:
+        student: "Студент"
+        project: "Проект"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      teachers_project_membership:
+        teacher: "Приподаватель"
+        project: "Проект"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      laboratory_work:
+        academic_plan: "Учебный план"
+        name: "Название"
+        description: "Задание/Описание"
+        document: "Файл"
+        mark: "Оценка"
+        student: "Студент"
+        teacher: "Преподаватель"
+        load_date: "Дата сдачи"
+        end_date: "Крайняя дата сдачи"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      practical_work:
+        academic_plan: "Учебный план"
+        name: "Название"
+        description: "Задание/Описание"
+        mark: "Оценка"
+        document: "Файл"
+        student: "Студент"
+        teacher: "Преподаватель"
+        load_date: "Дата сдачи"
+        end_date: "Крайняя дата сдачи"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      subject:
+        name: "Название"
+        semesters: "Семестры"
+        description: "Описание"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      academic_plan:
+        semester: "Семестр"
+        subject: "Предмет"
+        laboratory_works: "Лабораторные работы"
+        practical_works: "Практические работы"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+        document: "Файл"
       group:
         subgroups: "Подгруппы"
-        name: Номер группы
+        name: "Номер группы"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      subgroup:
+        name: "Название"
+        group: "Группа"
+        students: "Студенты"
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+      semester:
+        created_at: "Создано в"
+        updated_at: "Обновлено в"
+        id: "Номер"

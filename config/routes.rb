@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '/adminka', as: 'rails_admin'
+
+
   root 'posts#index'
   resources :chat_rooms, only: [:new, :create, :show, :index]
   resources :subjects, only: [:index, :show]
@@ -16,16 +17,18 @@ Rails.application.routes.draw do
   devise_for :teachers
   devise_for :students
 
-  resources :student do
-    resources :laboratory_works, only: [:index, :show, :edit, :update]
-    resources :practical_works, only: [:index, :show, :edit, :update]
-  end
-
   authenticate :student do
     resources :brigades do
       resources :brigade_memberships
     end
   end
+
+  resources :student do
+    resources :laboratory_works, only: [:index, :show, :edit, :update]
+    resources :practical_works, only: [:index, :show, :edit, :update]
+  end
+
+
 
   resources :teacher do
     resources :laboratory_works, :practical_works, :projects
@@ -40,6 +43,7 @@ Rails.application.routes.draw do
   end
 
   mount PdfjsViewer::Rails::Engine => "/pdfjs", as: 'pdfjs'
+  mount RailsAdmin::Engine => '/adminka', as: 'rails_admin'
 
 
 end

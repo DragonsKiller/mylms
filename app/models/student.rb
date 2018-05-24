@@ -22,4 +22,10 @@ class Student < ApplicationRecord
 
   has_many :chat_rooms, dependent: :destroy
   has_many :messages, dependent: :destroy
+
+  def name
+    if !self.id.nil?
+      self.last_name+' '+self.first_name+' '+self.second_name
+    end
+  end
 end

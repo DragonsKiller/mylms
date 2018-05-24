@@ -16,4 +16,12 @@ class Teacher < ApplicationRecord
   has_many :academic_plans, through: :practical_works
 
   has_many :lessons
+
+  delegate :last_name, to: :lessons, prefix: true
+
+  def name
+    if !self.id.nil?
+      self.last_name+' '+self.first_name+' '+self.second_name
+    end
+  end
 end

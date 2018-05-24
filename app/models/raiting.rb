@@ -1,7 +1,8 @@
 class Raiting < ApplicationRecord
-
+serialize :data
+before_create :get_data
   def get_data
-    ActiveRecord::Base.connection.exec_query("
+    self.data = ActiveRecord::Base.connection.exec_query("
       SELECT lab.semester, lab.subject, lab.tottal_lab_mark, prac.tottal_prac_mark, lab.student_id, lab.full_name FROM
       (
         SELECT DISTINCT flab.semester, flab.subject, CASE WHEN slab.labs_count > 1 THEN 1.00000 * (slab.tottal_lab_mark/slab.labs_count) ELSE 1.00000 * slab.tottal_lab_mark END AS tottal_lab_mark, flab.student_id, flab.full_name FROM

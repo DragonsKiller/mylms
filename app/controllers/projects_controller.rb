@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
-    @project = current_teacher.projects.build
+    @project = Project.new
   end
 
   # GET /projects/1/edit
@@ -25,11 +25,12 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = current_teacher.projects.create(project_params)
+    @project = Project.new(project_params)
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to [@project.teacher, @project], notice: 'Project was successfully created.' }
+        @teachers_project_memberships = @project.teachers_project_memberships.create({project_id: @project.id, teacher_id: @project.project_admin_id})
+        format.html { redirect_to @project, notice: 'Project was successfully created.' }
       else
         format.html { render :new }
       end
@@ -41,7 +42,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to [@project.teacher, @project], notice: 'Project was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -53,14 +54,14 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to teacher_projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = current_teacher.projects.find(params[:id])
+      @project = Projects.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
