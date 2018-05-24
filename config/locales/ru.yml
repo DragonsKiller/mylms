@@ -90,6 +90,9 @@ ru:
         teachers_project_memberships: "Преподаватели"
         created_at: "Создано в"
         updated_at: "Обновлено в"
+        project_admin_id: "Администратор"
+        students: "Студенты"
+        teachers: "Преподаватели"
       raiting:
         created_at: "Создано в"
         data: "Данные"

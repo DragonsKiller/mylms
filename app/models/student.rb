@@ -5,6 +5,8 @@ class Student < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates_presence_of :last_name, :first_name, :second_name, :st_id, :email, :password, :password_confirmation
+
   belongs_to :subgroup
   has_many :brigade_memberships
   has_many :brigades, through: :brigade_memberships

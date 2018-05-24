@@ -4,18 +4,18 @@ RailsAdmin.config do |config|
 
   config.model 'Student' do
     list do
+      field :last_name
       field :first_name
       field :second_name
-      field :last_name
       field :st_id
       field :email
       field :subgroup
     end
 
     edit do
+      field :last_name
       field :first_name
       field :second_name
-      field :last_name
       field :st_id
       field :email
       field :subgroup
@@ -26,16 +26,16 @@ RailsAdmin.config do |config|
 
   config.model 'Teacher' do
     list do
+      field :last_name
       field :first_name
       field :second_name
-      field :last_name
       field :email
     end
 
     edit do
+      field :last_name
       field :first_name
       field :second_name
-      field :last_name
       field :email
       field :password
       field :password_confirmation
@@ -116,7 +116,6 @@ RailsAdmin.config do |config|
   config.model 'Post' do
     list do
       field :title
-      field :description
       field :category
     end
   end
