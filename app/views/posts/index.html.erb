@@ -35,6 +35,6 @@
 <%= link_to 'Groups',  groups_path %>
 <p>
 <% @posts.each do |post| %>
-     <h1><%= link_to "post.title", post %></h1>
+     <h1><%= link_to "#{post.title}", post %></h1>
      <p><%= post.content %></p>
 <% end %>

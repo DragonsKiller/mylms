@@ -4,7 +4,7 @@ attr_accessor :data, :students_groups, :raiting
   def index
     @count = 0;
     @rait = Raiting.last
-    @data = @rait.get_data
+    @data = @rait.data
     @students_groups = @rait.get_students_groups
   end
 

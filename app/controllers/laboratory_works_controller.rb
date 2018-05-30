@@ -73,14 +73,12 @@ class LaboratoryWorksController < ApplicationController
   end
 
   def update_for_student
-    if teacher_signed_in?
-      set_laboratory_work_for_student
-      respond_to do |format|
-        if @laboratory_work.update(get_params_for_student.merge({load_date: Date.today}))
-          format.html { redirect_to([@laboratory_work.student, @laboratory_work], :notice => 'Laboratory work was successfully updated.') }
-        else
-          format.html { render :edit }
-        end
+    set_laboratory_work_for_student
+    respond_to do |format|
+      if @laboratory_work.update(get_params_for_student.merge({load_date: Date.today}))
+        format.html { redirect_to([@laboratory_work.student, @laboratory_work], :notice => 'Laboratory work was successfully updated.') }
+      else
+        format.html { render :edit }
       end
     end
   end

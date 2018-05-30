@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  mount ActionCable.server => '/cable'
   root 'posts#index'
   resources :chat_rooms, only: [:new, :create, :show, :index]
   resources :subjects, only: [:index, :show]
@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     resources :projects, only: [:index, :show] do
       resources :teachers_project_memberships, :students_project_memberships
     end
+    resources :chat_rooms, only: [:new, :create, :show, :index]
     resources :lessons, only: [:new, :create, :edit, :update, :destroy]
   end
 

@@ -69,3 +69,4 @@ gem "rails_admin-i18n"
 gem 'activity_notification'
 gem 'whenever', require: false
 gem 'rails-i18n', '~> 5.1'
+gem 'redis', '~> 3.2'

@@ -18,3 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+every '0 3 1 * *' do
+  runner Raiting.create
+end
